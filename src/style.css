@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+@theme {
+	--color-regal-main_gradient: linear-gradient(120deg,_rgba(173,54,203,1)_10%,_rgba(51,51,51,1)_99%);
+	--font-poppins: 'Poppins', sans-serif;
+	--shadow-card_main: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	--shadow-card_main_light: 0px 4px 4px 0px rgba(255, 250, 250, 0.25);
+	--shadow-card_main_light_2: 0px 4px 4px 0px rgba(253, 245, 245, 0.25);
+}
+
+.shadow-card-combined {
+  box-shadow:
+    var(--shadow-card_main),
+    var(--shadow-card_main_light),
+    var(--shadow-card_main_light_2);
+}

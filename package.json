@@ -1,0 +1,61 @@
+{
+  "name": "weather-app.vue",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"node server.js\" \"vite\"",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "sb": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@antfu/utils": "^9.2.0",
+    "@tailwindcss/vite": "^4.1.4",
+    "@tanstack/vue-query": "^5.74.9",
+    "@types/node": "^22.15.3",
+    "axios": "^1.9.0",
+    "camelcase": "^8.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "eslint-plugin-readable-tailwind": "^2.1.1",
+    "express": "^5.1.0",
+    "http-status-codes": "^2.3.0",
+    "lucide-vue-next": "^0.503.0",
+    "node-fetch": "^3.3.2",
+    "tailwindcss": "^4.1.4",
+    "vue": "^3.5.13",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.12.0",
+    "@chromatic-com/storybook": "3",
+    "@storybook/addon-essentials": "8.6.12",
+    "@storybook/addon-onboarding": "8.6.12",
+    "@storybook/blocks": "8.6.12",
+    "@storybook/experimental-addon-test": "8.6.12",
+    "@storybook/test": "8.6.12",
+    "@storybook/vue3": "8.6.12",
+    "@storybook/vue3-vite": "8.6.12",
+    "@vitejs/plugin-vue": "^5.2.2",
+    "@vitest/browser": "^3.1.2",
+    "@vitest/coverage-v8": "^3.1.2",
+    "@vue/tsconfig": "^0.7.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.25.1",
+    "eslint-plugin-storybook": "^0.12.0",
+    "playwright": "^1.52.0",
+    "storybook": "8.6.12",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.7.3",
+    "vite": "^6.3.1",
+    "vitest": "^3.1.2",
+    "vue-tsc": "^2.2.8"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}
