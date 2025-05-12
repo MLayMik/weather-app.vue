@@ -26,18 +26,18 @@ export interface CurrentWeather {
   weather: Weather[]
   base: string
   main: Main
-  wind: Wind
-  visibility: number
+  wind?: Wind
+  visibility?: number
   rain: {
     '1h': number
   }
   clouds: {
     all: number
   }
-  dt: Date
+  date: Date
   sys: {
-    type: number
-    id: number
+    type?: number
+    id?: number
     country: string
     sunrise: number
     sunset: number
@@ -45,4 +45,12 @@ export interface CurrentWeather {
   timezone: number
   id: number
   name: string
+}
+
+export interface SearchResult {
+  name: string
+  lat: number
+  lon: number
+  country: string
+  state?: string
 }

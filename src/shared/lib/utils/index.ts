@@ -1,3 +1,4 @@
 export { formatDate } from './formatDate'
-export { convertKeysToCamelCase } from './toCamelCase'
+export { formatTime } from './formatTime'
 export type AnyObject = Record<string, unknown>
+export { convertKeysToCamelCase } from './toCamelCase'

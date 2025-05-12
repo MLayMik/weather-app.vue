@@ -15,3 +15,7 @@
     var(--shadow-card_main_light),
     var(--shadow-card_main_light_2);
 }
+
+#app {
+	height: 100vh;
+}

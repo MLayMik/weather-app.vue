@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import cors from 'cors'
 
 import dotenv from 'dotenv'
@@ -14,12 +15,36 @@ const PORT = 3001
 
 app.use(cors())
 
-app.get('/weather', async (req, res) => {
+app.get('/api/weather', async (req, res) => {
+  const { q, lat, lon } = req.query
+  let url = ''
+
+  if (!q && (!lat && !lon))
+    return res.status(400).json({ error: 'City is required' })
+
+  if (q) {
+    url = `https://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${API_KEY}&units=metric`
+  }
+  else if (lat && lon) {
+    url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+  }
+
+  try {
+    const response = await fetch(url)
+    const data = await response.json()
+    res.json(data)
+  }
+  catch (error) {
+    res.status(500).json({ error: `Something went wrong ${error}` })
+  }
+})
+
+app.get('/api/search', async (req, res) => {
   const city = req.query.q
   if (!city)
     return res.status(400).json({ error: 'City is required' })
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+  const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`
 
   try {
     const response = await fetch(url)

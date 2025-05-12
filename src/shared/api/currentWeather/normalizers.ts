@@ -1,4 +1,4 @@
-import type { CurrentWeather } from '@/shared/types/models'
+import type { CurrentWeather } from '@/shared/types'
 import type { z } from 'zod'
 import type { CurrentWeatherSchema } from './types'
 import { objectPick } from '@antfu/utils'
@@ -12,6 +12,8 @@ export function normalizeCurrentWeather(
       'timezone',
       'base',
       'id',
+      'sys',
+      'wind',
     ]),
     coord: objectPick(currentWeather.coord, ['lat', 'lon']),
     main: {
@@ -22,29 +24,20 @@ export function normalizeCurrentWeather(
       pressure: currentWeather.main.pressure,
       humidity: currentWeather.main.humidity,
     },
-    dt: new Date(currentWeather.dt * 1000),
-    wind: {
-      speed: currentWeather.wind?.speed ?? 0,
-      deg: currentWeather.wind?.deg,
-      gust: currentWeather.wind?.gust,
-    },
+    date: new Date(currentWeather.dt * 1000),
     clouds: objectPick(currentWeather.clouds, ['all']),
-    visibility: currentWeather.visibility / 1000,
+    visibility: currentWeather.visibility
+      !== undefined
+      ? currentWeather.visibility / 1000
+      : undefined,
     rain: {
       '1h': currentWeather.rain?.['1h'] ?? 0,
     },
-    sys: objectPick(currentWeather.sys, [
-      'type',
-      'id',
-      'country',
-      'sunrise',
-      'sunset',
-    ]),
     weather: currentWeather.weather.map(weather => ({
       id: weather.id,
       main: weather.main,
       description: weather.description,
-      icon: `https://openweathermap.org/img/wn/${weather.icon}`,
+      icon: `https://openweathermap.org/img/wn/${weather.icon}.png`,
     })),
   }
 }

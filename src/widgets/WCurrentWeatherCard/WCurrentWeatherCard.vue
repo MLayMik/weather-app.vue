@@ -1,28 +1,44 @@
 <script setup lang="ts">
+import type { Main, Weather, Wind } from '@/shared/types/models'
 import { formatDate } from '@/shared/lib/utils'
 import { MapPin, Thermometer } from 'lucide-vue-next'
+import { computed, toRefs } from 'vue'
 
 interface Props {
-  city: string
+  weather: Weather[]
+  base: string
+  main: Main
+  wind?: Wind
+  visibility?: number
+  rain: {
+    '1h': number
+  }
+  clouds: {
+    all: number
+  }
   date: Date
-  temperature: number
-  icon: string
-  humidity: number
-  visibility: number
-  airPressure: number
-  wind: number
+  sys: {
+    type?: number
+    id?: number
+    country: string
+    sunrise: number
+    sunset: number
+  }
+  timezone: number
+  id: number
+  name: string
 }
 
-const {
-  city,
-  date,
-  temperature,
-  icon,
-  humidity,
-  visibility,
-  airPressure,
-  wind,
-} = defineProps<Props>()
+const props = defineProps<Props>()
+
+const { weather } = toRefs<Props>(props)
+
+const weatherFirst = computed(() => {
+  if (weather.value.length > 0) {
+    return weather.value[0]
+  }
+  return null
+})
 </script>
 
 <template>
@@ -38,7 +54,7 @@ const {
     >
       <div class="flex items-center gap-1 text-3xl">
         <p>
-          {{ city }}
+          {{ name }}
         </p>
         <MapPin class="size-8" />
       </div>
@@ -46,8 +62,8 @@ const {
       <div>
         <div class="flex items-center justify-center gap-1 text-7xl">
           <Thermometer class="size-16" />
-          <p>{{ temperature }}°C</p>
-          <img class="size-20" :src="icon">
+          <p>{{ main.temp }}°C</p>
+          <img class="size-20" :src="weatherFirst?.icon" alt="weather icon">
         </div>
         <p class="text-xl font-medium underline">
           {{ formatDate({ date, options: { showYear: true } }) }}
@@ -57,22 +73,30 @@ const {
       <div class="mx-8 mb-3 flex justify-between text-xl font-medium uppercase">
         <div class="flex flex-col items-center justify-center">
           <p>Humidity</p>
-          <p>{{ humidity }}%</p>
+          <p>{{ main.humidity }}%</p>
         </div>
         <div class="flex flex-col items-center justify-center">
           <p>Visiblity</p>
-          <p>{{ visibility }}kM</p>
+          <p v-if="visibility">
+            {{ visibility }}kM
+          </p>
+          <p v-else>
+            No data
+          </p>
         </div>
         <div class="flex flex-col items-center justify-center">
           <p>Air Pressure</p>
           <p class="normal-case">
-            {{ airPressure }}hPa
+            {{ main.pressure }} hPa
           </p>
         </div>
         <div class="flex flex-col items-center justify-center">
           <p>Wind</p>
-          <p>
-            {{ wind }} m/s
+          <p v-if="wind">
+            {{ wind.speed }} m/s
+          </p>
+          <p v-else>
+            No data
           </p>
         </div>
       </div>
