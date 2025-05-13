@@ -1,4 +1,5 @@
-import type { ApiEndpointsAndSchemas } from '../lib'
+/* eslint-disable ts/consistent-type-definitions */
+import type { ApiEndpointsAndSchemas, ToKeyParams } from '../lib'
 import { client } from '../lib'
 import { normalizeSearchResult } from './normalizers'
 import { SearchResultSchema } from './types'
@@ -11,7 +12,8 @@ const endpoints = {
   },
 } satisfies ApiEndpointsAndSchemas
 
-export interface SearchCityParams { city: string }
+export type SearchCityParams = { city: string }
+export type SearchCityKeyParams = ToKeyParams<SearchCityParams>
 
 export async function searchCity({ city }: SearchCityParams) {
   const { url, method, schema } = endpoints.searchCity

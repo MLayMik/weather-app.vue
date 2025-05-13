@@ -1,7 +1,6 @@
-import type { Ref } from 'vue'
-import type { SearchCityParams } from './api'
+import type { SearchCityKeyParams } from './api'
 import { useQuery } from '@tanstack/vue-query'
-import { computed } from 'vue'
+import { paramsAnd } from '../lib'
 import { searchCity } from './api'
 
 const entity = 'search'
@@ -9,15 +8,16 @@ const Scopes = { ByCity: 'by-city' } as const
 
 const keys = {
   getSearchCity:
-  (params: SearchCityParams) => [
+  (params: SearchCityKeyParams) => [
     { entity, scope: Scopes.ByCity, ...params },
   ] as const,
 } as const
 
-export function useSearchCity(params: { city: Ref<string> }) {
+export function useSearchCity(params: SearchCityKeyParams) {
   return useQuery({
-    queryKey: computed(() => keys.getSearchCity({ city: params.city.value })),
-    queryFn: () => searchCity({ city: params.city.value }),
-    enabled: computed(() => !!params.city.value.trim()),
+    queryKey: keys.getSearchCity(params),
+    queryFn: ({ queryKey: [{ city }] }) =>
+      searchCity({ city: city! }),
+    enabled: paramsAnd(params),
   })
 }

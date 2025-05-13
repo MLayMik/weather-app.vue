@@ -50,7 +50,7 @@ const { data: suggestions } = useSearchCity({ city: debouncedInput })
           v-for="item in suggestions"
           :key="item.name + item.country"
           class="m-1 rounded-xl border-b bg-[#d9d9d9] p-4 text-xl"
-          @click="$emit('search-result', item.lat, item.lon)"
+          @click="$emit('search-result', item.lat, item.lon); input = ''"
         >
           {{ item.name }}, {{ item.country }}
           <span v-if="item.state">({{ item.state }})</span>
