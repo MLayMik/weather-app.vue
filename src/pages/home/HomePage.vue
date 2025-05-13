@@ -1,14 +1,41 @@
 <!-- eslint-disable max-len -->
 <script setup lang="ts">
+import type { CurrentWeather } from '@/shared/types'
 import { WMiniCards } from '@/features/WMiniCards'
 import { WSearch } from '@/features/WSearch'
-import { useCurrentWeatherByCity } from '@/shared/api/currentWeather'
+import { useCurrentWeatherByCity, useCurrentWeatherByCoords } from '@/shared/api/currentWeather'
 import { formatTime } from '@/shared/lib/utils'
 import logo from '@/shared/ui/assets/weather_logo.svg'
-import { WCurrentWeatherCard } from '@/widgets/WCurrentWeatherCard'
-import { onMounted, onUnmounted, ref } from 'vue'
+import WCurrentWeatherCard from '@/widgets/WCurrentWeatherCard/WCurrentWeatherCard.vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+
+const currentWeather = ref<CurrentWeather>()
+const lat = ref<number | null>(null)
+const lon = ref<number | null>(null)
 
 const { data } = useCurrentWeatherByCity({ city: 'moscow' })
+
+watch(data, (newValue) => {
+  if (newValue) {
+    currentWeather.value = newValue
+  }
+})
+
+function handleSearchResult(newLat: number, newLon: number) {
+  lat.value = newLat
+  lon.value = newLon
+}
+
+const { data: coordsData } = useCurrentWeatherByCoords({
+  lat,
+  lon,
+})
+
+watch(coordsData, (newValue) => {
+  if (newValue) {
+    currentWeather.value = newValue
+  }
+})
 
 const currentTime = ref('')
 
@@ -52,9 +79,10 @@ onUnmounted(() => {
       </header>
       <div class="mt-[45px] flex flex-col items-center justify-center">
         <!-- Input -->
-        <WSearch />
+        <WSearch @search-result="handleSearchResult" />
         <WCurrentWeatherCard
-          v-if="data && data.weather && data.main" :="data"
+          v-if="currentWeather && currentWeather.weather && currentWeather.main"
+          :="currentWeather"
         />
       </div>
       <WMiniCards

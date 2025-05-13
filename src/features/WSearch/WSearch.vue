@@ -2,9 +2,11 @@
 import { useSearchCity } from '@/shared/api/search'
 import { useDebounce } from '@vueuse/core'
 import { SearchIcon } from 'lucide-vue-next'
-
 import { ref } from 'vue'
 
+defineEmits<{
+  (e: 'search-result', lat: number, lon: number): void
+}>()
 const input = ref('')
 const isFocused = ref(false)
 
@@ -22,6 +24,8 @@ const { data: suggestions } = useSearchCity({ city: debouncedInput })
       id="inputSearch"
       v-model="input"
       type="text"
+      placeholder="Search city"
+      autocomplete="off"
       class="
         font-poppins min-h-[66px] min-w-[711px] rounded-[25px] bg-[#d9d9d9]
         pl-20 text-3xl
@@ -46,7 +50,7 @@ const { data: suggestions } = useSearchCity({ city: debouncedInput })
           v-for="item in suggestions"
           :key="item.name + item.country"
           class="m-1 rounded-xl border-b bg-[#d9d9d9] p-4 text-xl"
-          @mousedown.prevent=""
+          @click="$emit('search-result', item.lat, item.lon)"
         >
           {{ item.name }}, {{ item.country }}
           <span v-if="item.state">({{ item.state }})</span>

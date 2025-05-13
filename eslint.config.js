@@ -10,5 +10,6 @@ export default antfu({
     ...eslintPluginReadableTailwind.configs.error.rules,
     'readable-tailwind/multiline': ['warn', { printWidth: 80 }],
     'max-len': ['warn', { code: 80 }],
+    'vue/custom-event-name-casing': 'warn',
   },
 })

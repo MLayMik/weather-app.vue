@@ -1,8 +1,9 @@
 import type {
-  CurrentWeatherByCityParams,
-  CurrentWeatherByCoordsParams,
+  CurrentWeatherByCityKeyParams,
+  CurrentWeatherByCoordsKeyParams,
 } from './api'
 import { useQuery } from '@tanstack/vue-query'
+import { paramsAnd } from '../lib'
 import { getCurrentWeatherByCity, getCurrentWeatherByCoords } from './api'
 
 const entity = 'weather'
@@ -13,28 +14,31 @@ const Scopes = {
 
 const keys = {
   getCurrentWeatherByCity:
-  (params: CurrentWeatherByCityParams) => [
+  (params: CurrentWeatherByCityKeyParams) => [
     { entity, scope: Scopes.ByCity, ...params },
   ] as const,
+
   getCurrentWeatherByCoords:
-  (params: CurrentWeatherByCoordsParams) => [
+  (params: CurrentWeatherByCoordsKeyParams) => [
     { entity, scope: Scopes.ByCoords, ...params },
   ] as const,
 } as const
 
 export function
-useCurrentWeatherByCity(params: CurrentWeatherByCityParams) {
+useCurrentWeatherByCity(params: CurrentWeatherByCityKeyParams) {
   return useQuery({
     queryKey: keys.getCurrentWeatherByCity(params),
-    queryFn: ({ queryKey: [{ city }] }) => getCurrentWeatherByCity({ city }),
+    queryFn: ({ queryKey: [{ city }] }) =>
+      getCurrentWeatherByCity({ city: city! }),
   })
 }
 
 export function
-useCurrentWeatherByCoords(params: CurrentWeatherByCoordsParams) {
+useCurrentWeatherByCoords(params: CurrentWeatherByCoordsKeyParams) {
   return useQuery({
     queryKey: keys.getCurrentWeatherByCoords(params),
-    queryFn:
-    ({ queryKey: [{ lat, lon }] }) => getCurrentWeatherByCoords({ lat, lon }),
+    queryFn: ({ queryKey: [{ lat, lon }] }) =>
+      getCurrentWeatherByCoords({ lat: lat!, lon: lon! }),
+    enabled: paramsAnd(params),
   })
 }
