@@ -14,8 +14,8 @@ export function normalizeCurrentWeather(
       'id',
       'sys',
       'wind',
+      'coord',
     ]),
-    coord: objectPick(currentWeather.coord, ['lat', 'lon']),
     main: {
       temp: Math.round(currentWeather.main.temp),
       feelsLike: Math.round(currentWeather.main.feels_like),

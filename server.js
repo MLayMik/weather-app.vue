@@ -56,6 +56,23 @@ app.get('/api/search', async (req, res) => {
   }
 })
 
+app.get('/api/forecast', async (req, res) => {
+  const { lat, lon } = req.query
+  if (!lat || !lon)
+    return res.status(400).json({ error: 'Lat and Lot is required' })
+
+  const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&cnt=8`
+
+  try {
+    const response = await fetch(url)
+    const data = await response.json()
+    res.json(data)
+  }
+  catch (error) {
+    res.status(500).json({ error: `Something went wrong ${error}` })
+  }
+})
+
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`Server is running on http://localhost:${PORT}, ${API_KEY}`)

@@ -22,14 +22,18 @@ export interface Wind {
   gust?: number
 }
 export interface CurrentWeather {
-  coord: Coord
+  coord?: Coord
   weather: Weather[]
-  base: string
+  base?: string
   main: Main
   wind?: Wind
   visibility?: number
   rain: {
-    '1h': number
+    '1h'?: number
+    '3h'?: number
+  }
+  snow?: {
+    '3h'?: number
   }
   clouds: {
     all: number
@@ -38,13 +42,33 @@ export interface CurrentWeather {
   sys: {
     type?: number
     id?: number
-    country: string
-    sunrise: number
-    sunset: number
+    country?: string
+    sunrise?: number
+    sunset?: number
+    pod?: string
   }
-  timezone: number
+  timezone?: number
+  id?: number
+  name?: string
+  pop?: number
+}
+
+export interface ForecastCity {
   id: number
   name: string
+  coord: {
+    lat: number
+    lon: number
+  }
+  country: string
+  timezone: number
+  sunrise: number
+  sunset: number
+}
+
+export interface WeatherForecast {
+  list: CurrentWeather[]
+  city: ForecastCity
 }
 
 export interface SearchResult {

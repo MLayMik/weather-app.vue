@@ -21,7 +21,7 @@ const keys = {
   getCurrentWeatherByCoords:
   (params: CurrentWeatherByCoordsKeyParams) => [
     { entity, scope: Scopes.ByCoords, ...params },
-  ] as const,
+  ],
 } as const
 
 export function
