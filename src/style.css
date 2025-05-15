@@ -15,16 +15,3 @@
     var(--shadow-card_main_light),
     var(--shadow-card_main_light_2);
 }
-
-#app {
-	height: 100vh;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease-in-out;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}

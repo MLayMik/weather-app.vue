@@ -27,8 +27,9 @@ const { data: suggestions } = useSearchCity({ city: debouncedInput })
       placeholder="Search city"
       autocomplete="off"
       class="
-        font-poppins min-h-[66px] min-w-[711px] rounded-[25px] bg-[#d9d9d9]
-        pl-20 text-3xl
+        font-poppins min-h-[66px] w-full rounded-[25px] bg-[#d9d9d9] pl-20
+        text-3xl
+        sm:w-[711px]
       "
       @focus="isFocused = true"
       @blur="isFocused = false"

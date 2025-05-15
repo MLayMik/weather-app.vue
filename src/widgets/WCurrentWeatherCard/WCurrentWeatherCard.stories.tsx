@@ -25,6 +25,9 @@ Default.args = {
   base: 'stations',
   main: {
     temp: 280,
+    feelsLike: 200,
+    tempMin: 299,
+    tempMax: 400,
     humidity: 100,
     pressure: 1000,
   },

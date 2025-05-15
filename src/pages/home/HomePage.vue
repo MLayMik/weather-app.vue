@@ -40,7 +40,12 @@ const { data: forecastData } = useWeatherForecast({
       <img :src="logo" alt="">
       <header class="flex justify-between">
         <div>
-          <p class="text-7xl text-white">
+          <p
+            class="
+              text-3xl text-white
+              sm:text-7xl
+            "
+          >
             WeatherMe
           </p>
           <WTime />
@@ -59,7 +64,10 @@ const { data: forecastData } = useWeatherForecast({
       </div>
       <div
         v-if="forecastData"
-        class="flex justify-between"
+        class="
+          justify-between
+          sm:flex
+        "
       >
         <WMiniCards
           v-for="forecastItem in forecastData?.list"
