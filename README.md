@@ -1,5 +1,21 @@
-# Vue 3 + TypeScript + Vite
+# 🌦️ WeatherMe
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+**WeatherMe** is a modern weather app that allows users to view real-time weather information and a 24-hour forecast for any city around the world.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+---
+
+## ✨ Features
+
+- 🔍 **Search by city** — get weather data for any location
+- 📍 **Geolocation support** — fetch weather by coordinates
+- 🌤️ **Current conditions** — temperature, humidity, wind, and more
+- 📅 **24-hour forecast** — detailed hourly updates
+
+---
+
+## 🛠️ Technologies Used
+
+- **Vue 3** + **TypeScript**
+- **Tailwind CSS** for styling
+- **Express.js** backend proxy
+- **OpenWeatherMap API**
