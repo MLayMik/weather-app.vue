@@ -1,6 +1,4 @@
 /* eslint-disable max-len */
-import cors from 'cors'
-
 import dotenv from 'dotenv'
 
 import express from 'express'
@@ -13,7 +11,10 @@ const API_KEY = process.env.VITE_API_KEY
 const app = express()
 const PORT = 3001
 
-app.use(cors())
+app.use(require('cors')({
+  origin: 'https://weather-app-vue-iota.vercel.app', // точный домен
+  credentials: true,
+}))
 
 app.get('/api/weather', async (req, res) => {
   const { q, lat, lon } = req.query
